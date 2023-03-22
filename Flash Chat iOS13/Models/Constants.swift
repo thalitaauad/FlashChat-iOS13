@@ -19,6 +19,3 @@ struct K {
         static let dateField = "date"
     }
 }
-//static let nao precisa criar um novo obj no controller
-//let -> let constants = Constants()
-//static let -> Constants.registerSegue

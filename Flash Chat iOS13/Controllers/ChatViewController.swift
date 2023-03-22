@@ -54,16 +54,16 @@ class ChatViewController: UIViewController {
             }
         }
     }
-    //quando send for pressionado, salva mensagem no firebase
+    
     @IBAction func sendPressed(_ sender: UIButton) {
+        //quando send for pressionado, salva mensagem no firebase
         
-        //verifica se é nulo
         if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email {
             db.collection(K.FStore.collectionName).addDocument(data: [
                 K.FStore.senderField: messageSender,
                 K.FStore.bodyField: messageBody,
                 K.FStore.dateField: Date().timeIntervalSince1970 //Date() obtém horário
-                //timeIntervalSince1970 pega todos os segundos desde 1970
+                
             ]) { (error) in
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")
@@ -101,14 +101,14 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
         cell.label.text = messages[indexPath.row].body
         
-        //esta é uma mensagem do usuário atual
+        // user atual
         if message.sender == Auth.auth().currentUser?.email {
             cell.leftImageView.isHidden = true
             cell.rightImageView.isHidden = false
             cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.lightPurple)
             cell.label.textColor = UIColor(named: K.BrandColors.purple)
         }
-        //mensagem de outro user
+        //outro user
         else {
             cell.leftImageView.isHidden = false
             cell.rightImageView.isHidden = true
